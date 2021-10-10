@@ -33,7 +33,7 @@ public class EmployeeService {
         return employeeRepository.save(employee);
     }
 
-    public Employee findEmployeeById(Long id) throws Throwable {
+    public Employee findEmployeeById(Long id){
         return (Employee) employeeRepository.findEmployeeById(id).orElseThrow(() -> new UserNotFoundException("User by id " + id + " was not found"));
 
     }

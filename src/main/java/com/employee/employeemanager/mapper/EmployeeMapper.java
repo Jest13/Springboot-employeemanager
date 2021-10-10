@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping
-@RestController("/employee")
+@RequestMapping("/employee")
+@RestController
+
 public class EmployeeMapper {
     private final EmployeeService employeeService;
 
