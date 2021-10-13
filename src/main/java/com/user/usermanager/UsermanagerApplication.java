@@ -1,13 +1,13 @@
-package com.employee.employeemanager;
+package com.user.usermanager;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class EmployeemanagerApplication {
+public class UsermanagerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(EmployeemanagerApplication.class, args);
+		SpringApplication.run(UsermanagerApplication.class, args);
 	}
 
 

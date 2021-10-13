@@ -1,10 +1,10 @@
-package com.employee.employeemanager.model;
+package com.user.usermanager.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class Employee implements Serializable {
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
@@ -15,18 +15,18 @@ public class Employee implements Serializable {
     private String phone;
     private String imageUrl;
     @Column(nullable = false, updatable = false)
-    private String employeeCode;
+    private String userCode;
 
-    public Employee() {
+    public User() {
     }
 
-    public Employee(String name, String email, String jobTitle, String phone, String imageUrl, String employeeCode) {
+    public User(String name, String email, String jobTitle, String phone, String imageUrl, String userCode) {
         this.name = name;
         this.email = email;
         this.jobTitle = jobTitle;
         this.phone = phone;
         this.imageUrl = imageUrl;
-        this.employeeCode = employeeCode;
+        this.userCode = userCode;
     }
 
     public Long getId() {
@@ -77,17 +77,17 @@ public class Employee implements Serializable {
         this.imageUrl = imageUrl;
     }
 
-    public String getEmployeeCode(){
-        return employeeCode;
+    public String getUserCode(){
+        return userCode;
     }
 
-    public void setEmployeeCode(String employeeCode) {
-        this.employeeCode = employeeCode;
+    public void setUserCode(String userCode) {
+        this.userCode = userCode;
     }
 
     @Override
     public String toString() {
-        return "Employee{" +
+        return "User{" +
             "id=" + id +
             ", name='" + name + '\'' +
             ", email'" + email + '\'' +
