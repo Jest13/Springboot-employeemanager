@@ -8,10 +8,10 @@
 		<version>2.5.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.employee</groupId>
-	<artifactId>employeemanager</artifactId>
+	<groupId>com.user</groupId>
+	<artifactId>usermanager</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>employeemanager</name>
+	<name>usermanager</name>
 	<description>EMployee Manager App </description>
 	<properties>
 		<java.version>1.8</java.version>
