@@ -1,4 +1,4 @@
-package com.user.usermanager.service;
+ package com.user.usermanager.service;
 
 import com.user.usermanager.repo.UserRepository;
 import com.user.usermanager.exception.UserNotFoundException;
