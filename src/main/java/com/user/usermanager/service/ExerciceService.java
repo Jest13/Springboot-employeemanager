@@ -1,8 +1,8 @@
 package com.user.usermanager.service;
 
+import com.user.usermanager.exception.ExerciceNotFoundException;
+import com.user.usermanager.model.Exercice;
 import com.user.usermanager.repo.ExerciceRepository;
-import com.user.usermanager.exception.UserNotFoundException;
-import com.user.usermanager.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,25 +20,19 @@ public class ExerciceService {
         this.exerciceRepository = exerciceRepository;
     }
 
-    public User addUser(User user){
-        user.setUserCode(UUID.randomUUID().toString());
-        return exerciceRepository.save(user);
-    }
 
-    public List<User> findAllUsers() {
+    public List<Exercice> findAllExercices() {
         return exerciceRepository.findAll();
     }
 
-    public User updateUser(User user) {
-        return exerciceRepository.save(user);
+    public Exercice updateExercice(Exercice exercice) {
+        return exerciceRepository.save(exercice);
     }
 
-    public User findUserById(Long id){
-        return (User) exerciceRepository.findUserById(id).orElseThrow(() -> new UserNotFoundException("User by id " + id + " was not found"));
+    public Exercice findExerciceById(Long id) {
+        return (Exercice) exerciceRepository.findExerciceById(id)
+                .orElseThrow(() -> new ExerciceNotFoundException("Exercice by id " + id + " was not found")); }
 
     }
-    public void deleteUser(Long id){
-        exerciceRepository.deleteUserById(id);
-    }
 
-}
+

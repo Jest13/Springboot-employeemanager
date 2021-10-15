@@ -30,4 +30,15 @@ import java.util.List;
         public Exercice() {
         }
 
+    public Exercice(String name, String description, Long muscle_id, String exemple, String difficuly, List<Muscle> muscle) {
+        this.name = name;
+        this.description = description;
+        this.muscle_id = muscle_id;
+        this.exemple = exemple;
+        this.difficuly = difficuly;
+        this.muscle = muscle;
+    }
+
+
+
 }
