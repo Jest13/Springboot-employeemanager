@@ -1,8 +1,0 @@
-{
-  "properties": [
-    {
-      "name": "@SpringBootApplication(exclude",
-      "type": "java.lang.String",
-      "description": "Description for @SpringBootApplication(exclude."
-  }
-] }
