@@ -11,22 +11,34 @@ public class User implements Serializable {
     private Long id;
     private String name;
     private String email;
-    private String jobTitle;
-    private String phone;
-    private String imageUrl;
+    private String lastname;
+    private String password;
+    private String age;
+    private String taille;
+    private String initial_exp_id;
+    private String lvl;
+    private Boolean gender;
+    private Boolean premium;
     @Column(nullable = false, updatable = false)
     private String userCode;
 
-    public User() {
-    }
 
-    public User(String name, String email, String jobTitle, String phone, String imageUrl, String userCode) {
+    public User(String name, String email, String lastname,
+                String password, String age, String taille,
+                String initial_exp_id, String lvl, Boolean gender, Boolean premium ) {
         this.name = name;
         this.email = email;
-        this.jobTitle = jobTitle;
-        this.phone = phone;
-        this.imageUrl = imageUrl;
+        this.lastname = lastname;
+        this.password = password;
+        this.age = age;
+        this.taille = taille;
+        this.initial_exp_id = initial_exp_id;
+        this.lvl = lvl;
+        this.gender = gender;
+        this.premium = premium;
         this.userCode = userCode;
+
+
     }
 
     public Long getId() {
@@ -53,30 +65,6 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public String getJobTitle() {
-        return jobTitle;
-    }
-
-    public void setJobTitle(String jobTitle) {
-        this.jobTitle = jobTitle;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
     public String getUserCode(){
         return userCode;
     }
@@ -85,15 +73,24 @@ public class User implements Serializable {
         this.userCode = userCode;
     }
 
+
+
+
     @Override
     public String toString() {
         return "User{" +
             "id=" + id +
             ", name='" + name + '\'' +
             ", email'" + email + '\'' +
-            ", jobTitle'" + jobTitle + '\'' +
-            ", phone'" + phone + '\'' +
-            ", imageUrl'" + imageUrl + '\'' +
+            ", lastname'" + lastname + '\'' +
+            ", password'" + password + '\'' +
+            ", age'" + age + '\'' +
+            ", taille'" + taille + '\'' +
+            ", initial_exp_id'" + initial_exp_id + '\'' +
+            ", lvl'" + lvl + '\'' +
+            ", gender'" + gender + '\'' +
+            ", premium'" + premium + '\'' +
+
         '}';
     }
 }
