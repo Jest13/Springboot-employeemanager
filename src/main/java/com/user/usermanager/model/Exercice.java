@@ -17,16 +17,7 @@ import java.util.List;
         private String difficuly;
         @OneToMany
         private List<Muscle> muscle;
-        @OneToMany
-        private List<Userprograms> userprograms;
 
-        @Entity
-        static class Userprograms {
-            private Long id;
-            private String program_id;
-            private String user_id;
-
-        }
 
     @Entity
     static class Muscle {
@@ -36,20 +27,18 @@ import java.util.List;
         private String body_part;
         private String image;
     }
-
-
         
         public Exercice() {
         }
 
-    public Exercice(String name, String description, Long muscle_id, String exemple, String difficuly, List<Muscle> muscle, List<Userprograms> userprograms) {
+    public Exercice(String name, String description, Long muscle_id, String exemple, String difficuly, List<Muscle> muscle) {
         this.name = name;
         this.description = description;
         this.muscle_id = muscle_id;
         this.exemple = exemple;
         this.difficuly = difficuly;
         this.muscle = muscle;
-        this.userprograms = userprograms;
+
     }
 
 

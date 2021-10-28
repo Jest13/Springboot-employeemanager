@@ -2,12 +2,13 @@ package com.user.usermanager.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false,  updatable = false)
     private Long id;
     private String name;
     private String email;
@@ -17,8 +18,8 @@ public class User implements Serializable {
     private String taille;
     private String initial_exp_id;
     private String lvl;
-    private Boolean gender;
-    private Boolean premium;
+    private String gender;
+    private String premium;
     @Column(nullable = false, updatable = false)
     private String userCode;
 
@@ -29,7 +30,7 @@ public class User implements Serializable {
 
     public User(String name, String email, String lastname,
                 String password, String age, String taille,
-                String initial_exp_id, String lvl, Boolean gender, Boolean premium, String userCode ) {
+                String initial_exp_id, String lvl, String gender, String premium, String userCode ) {
         this.name = name;
         this.email = email;
         this.lastname = lastname;
@@ -60,22 +61,48 @@ public class User implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+    public String getLastname() {return lastname; }
+    public void setLastname(String lastname) {this.name = lastname; }
 
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public String getPassword() { return password; }
+    public void setPassword(String password) {this.password = password; }
+
+    public String getAge() { return age; }
+    public void setAge(String age) {this.age = age; }
+
+    public String getTaille() { return taille; }
+    public void setTaille(String taille) {this.taille = taille; }
+
+    public String getInitial_exp_id() {return initial_exp_id;}
+    public void setInitial_exp_id(String initial_exp_id) {this.initial_exp_id = initial_exp_id; }
+
+    public String getLvl() {return lvl; }
+    public void setLvl(String lvl) {this.lvl = lvl; }
+
+    public String getGender() {return gender; }
+    public void setGender(String gender) {this.gender = gender; }
+
+    public String getpremium() {return premium; }
+    public void setPremium(String premium) {this.premium = premium; }
 
     public String getUserCode(){
         return userCode;
     }
 
+    public void setUserCode() {this.userCode = userCode; }
+
     public void setUserCode(String userCode) {
         this.userCode = userCode;
     }
+
+
 
 
 
@@ -94,6 +121,7 @@ public class User implements Serializable {
             ", lvl'" + lvl + '\'' +
             ", gender'" + gender + '\'' +
             ", premium'" + premium + '\'' +
+                ", usercode '" + userCode + '\'' +
 
         '}';
     }
