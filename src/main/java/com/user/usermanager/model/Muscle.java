@@ -13,7 +13,8 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Entity
-public class Exercice implements Serializable {
+public
+class Muscle implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,14 +23,12 @@ public class Exercice implements Serializable {
 
     private String name;
 
-    private String description;
+    private String body_part;
 
-    private String difficuly;
+    private String image;
 
     @OneToMany
-    @JoinColumn(name = "exercice_id")
+    @JoinColumn(name = "muscle_id")
     @ToString.Exclude
-    private List<RelationExerciceMuscle> relationsMuscles;
-
-
+    private List<RelationExerciceMuscle> relationsExercices;
 }
