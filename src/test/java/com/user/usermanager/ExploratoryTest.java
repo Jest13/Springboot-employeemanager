@@ -9,6 +9,7 @@ import com.user.usermanager.repo.RelationExerciceMuscleRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.jdbc.Sql;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -27,9 +28,10 @@ public class ExploratoryTest {
 
     @Test
     @Transactional
+    @Sql(scripts = {"/sql/schema.sql", "/sql/data.sql"})
     void name() {
         // ======= INIT MODEL
-        initDatabase();
+        // initDatabase();
 
         // ======== SERVICE =======
         // List<Muscle> allMuscles = exerciceRepository.findAll();
