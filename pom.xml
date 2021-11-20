@@ -15,6 +15,7 @@
 	<description>EMployee Manager App </description>
 	<properties>
 		<java.version>1.8</java.version>
+
 	</properties>
 
 	<dependencies>
@@ -60,6 +61,7 @@
 				<configuration>
 					<source>11</source>
 					<target>11</target>
+					<release>11</release>
 				</configuration>
 			</plugin>
 			</plugins>

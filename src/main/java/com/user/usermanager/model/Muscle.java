@@ -13,8 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Entity
-public
-class Muscle implements Serializable {
+public class Muscle implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
