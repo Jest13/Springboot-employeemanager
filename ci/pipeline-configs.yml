@@ -1,0 +1,40 @@
+#@data/values
+---
+envs: [ dev_u, ql_y, va_r, prod ]
+all_envs: [ dev_u, ant_a, ql_y, va_r, prod ]
+
+dev_u:
+  source_code: source-code
+  passed: []
+  flyway:
+    DB_USER: UPR02100
+    DB_URL: jdbc:oracle:thin:@(DESCRIPTION=(CONNECT_TIMEOUT=3)(TRANSPORT_CONNECT_TIMEOUT=1)(RETRY_COUNT=1)(ADDRESS_LIST=(LOAD_BALANCE=yes)(FAILOVER=yes)(address=(protocol=tcp)(host=oracl-base-f0dopr0210001.sii24.pole-emploi.intra)(port=1521))(address=(protocol=tcp)(host=oracl-base-f0dopr0210002.sii24.pole-emploi.intra)(port=1521)))(CONNECT_DATA=(SERVICE_NAME=dopr0210_adm)(server=dedicated)))
+    DB_PASSWORD: ((schemas/pr02100.pwd_tic_u))
+ant_a:
+  source_code: source-code-ant
+  passed: []
+  flyway:
+    DB_USER: APR02100
+    DB_URL: jdbc:oracle:thin:@(DESCRIPTION=(CONNECT_TIMEOUT=3)(TRANSPORT_CONNECT_TIMEOUT=1)(RETRY_COUNT=1)(ADDRESS_LIST=(LOAD_BALANCE=yes)(FAILOVER=yes)(address=(protocol=tcp)(host=oracl-base-f0dopr0210001.sii24.pole-emploi.intra)(port=1521))(address=(protocol=tcp)(host=oracl-base-f0dopr0210002.sii24.pole-emploi.intra)(port=1521)))(CONNECT_DATA=(SERVICE_NAME=dopr0210_adm)(server=dedicated)))
+    DB_PASSWORD: ((schemas/pr02100.pwd_tic_a))
+ql_y:
+  source_code: source-code
+  passed: [flyway-dev_u]
+  flyway:
+    DB_USER: YPR02100
+    DB_URL: jdbc:oracle:thin:@(DESCRIPTION=(CONNECT_TIMEOUT=3)(TRANSPORT_CONNECT_TIMEOUT=1)(RETRY_COUNT=1)(ADDRESS_LIST=(LOAD_BALANCE=yes)(FAILOVER=yes)(address=(protocol=tcp)(host=oracl-base-f0xopr0210001.sii24.pole-emploi.intra)(port=1521))(address=(protocol=tcp)(host=oracl-base-f0xopr0210002.sii24.pole-emploi.intra)(port=1521)))(CONNECT_DATA=(SERVICE_NAME=xopr0210_adm)(server=dedicated)))
+    DB_PASSWORD: ((schemas/pr02100.pwd_tis_y))
+va_r:
+  source_code: source-code
+  passed: [flyway-ql_y]
+  flyway:
+    DB_USER: RPR02100
+    DB_URL: jdbc:oracle:thin:@(DESCRIPTION=(CONNECT_TIMEOUT=3)(TRANSPORT_CONNECT_TIMEOUT=1)(RETRY_COUNT=1)(ADDRESS_LIST=(LOAD_BALANCE=yes)(FAILOVER=yes)(address=(protocol=tcp)(host=oracl-base-f0ropr0210001.sii24.pole-emploi.intra)(port=1521))(address=(protocol=tcp)(host=oracl-base-f0ropr0210002.sii24.pole-emploi.intra)(port=1521)))(CONNECT_DATA=(SERVICE_NAME=ropr0210_adm)(server=dedicated)))
+    DB_PASSWORD: ((schemas/pr02100.pwd_va_r))
+prod:
+  source_code: source-code
+  passed: [flyway-va_r]
+  flyway:
+    DB_USER: PPR02100
+    DB_URL: jdbc:oracle:thin:@(DESCRIPTION=(CONNECT_TIMEOUT=3)(TRANSPORT_CONNECT_TIMEOUT=1)(RETRY_COUNT=1)(ADDRESS_LIST=(LOAD_BALANCE=yes)(FAILOVER=yes)(address=(protocol=tcp)(host=oracl-base-f0popr0210001.sip91.pole-emploi.intra)(port=1521))(address=(protocol=tcp)(host=oracl-base-f0popr0210002.sip91.pole-emploi.intra)(port=1521)))(CONNECT_DATA=(SERVICE_NAME=popr0210_adm)(server=dedicated)))
+    DB_PASSWORD: ((schemas/pr02100.pwd_prod_p))

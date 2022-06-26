@@ -1,0 +1,44 @@
+##############################################################
+# VERSION : 1.0.0
+# CHANGES :
+# 28/09/2020 | IGBR8800 | version initiale
+##############################################################
+platform: linux
+image_resource:
+  type: registry-image
+  source:
+    repository: ((docker_poleemploi.registre))/flyway/flyway
+    tag: 6.5-alpine
+inputs:
+  - name: source
+params:
+  # params CMDS_FLYWAY and LOC_FLYWAY is not read by flyway unlike the others https://flywaydb.org/documentation/envvars
+  CMDS_FLYWAY: #format: "cmd01; cmd02" or multiline string that replace ";"
+  LOC_FLYWAY:
+  FLYWAY_URL:
+  FLYWAY_USER:
+  FLYWAY_PASSWORD:
+  FLYWAY_CLEAN_DISABLED: 'true'
+run:
+  path: /bin/sh
+  args:
+    - -eucx
+    - |
+      # Check CMDS_FLYWAY
+      [ -z "$CMDS_FLYWAY" ] && echo "Le params CMDS_FLYWAY est obligatoire" && exit 1
+
+      [ -d "source/${LOC_FLYWAY}/conf" ]    && cp -R source/${LOC_FLYWAY}/conf/*    /flyway/conf/
+      [ -d "source/${LOC_FLYWAY}/drivers" ] && cp -R source/${LOC_FLYWAY}/drivers/* /flyway/drivers/
+      [ -d "source/${LOC_FLYWAY}/sql" ]     && cp -R source/${LOC_FLYWAY}/sql/*     /flyway/sql/
+      [ -d "source/${LOC_FLYWAY}/jars" ]    && cp -R source/${LOC_FLYWAY}/jars/*    /flyway/jars/
+
+      # force clean disabling for PROD (sip91)
+      [ -z "$(echo "$FLYWAY_URL" | sed "/\.sip91\./d")" ] && FLYWAY_CLEAN_DISABLED='true' && echo "clean is disabled."
+
+      OLD_IFS=$IFS
+      IFS=$'\n'
+      for i in $(echo -e "$CMDS_FLYWAY" | sed 's/;/\n/g'); do
+          IFS=$OLD_IFS
+          ARGS_FLYWAY=$(echo ${i} | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+          /flyway/flyway $ARGS_FLYWAY
+      done

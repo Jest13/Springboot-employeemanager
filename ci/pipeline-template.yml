@@ -1,0 +1,113 @@
+#@ load("@ytt:data", "data")
+#!#######################################################################################################################
+#!     _      _   _    ____   ____    _____   ____
+#!    / \    | \ | |  / ___| |  _ \  | ____| / ___|
+#!   / _ \   |  \| | | |     | |_) | |  _|   \___ \
+#!  / ___ \  | |\  | | |___  |  _ <  | |___   ___) |
+#! /_/   \_\ |_| \_|  \____| |_| \_\ |_____| |____/
+#!#######################################################################################################################
+
+#! Définitions des ancres
+repo-git: &repo-git
+  uri: ssh://git@git-scm.pole-emploi.intra:2222((git))
+  private_key: ((gitlab.cle_privee))
+  branch-source-code: ((branch-source-code))
+
+check-et-webhook: &webhook
+  webhook_token: ((git-webhook-token))
+
+#!#######################################################################################################################
+#!      _    ___    ____    ____
+#!     | |  / _ \  | __ )  / ___|
+#!  _  | | | | | | |  _ \  \___ \
+#! | |_| | | |_| | | |_) |  ___) |
+#!  \___/   \___/  |____/  |____/
+#!#######################################################################################################################
+
+jobs:
+   #@ for env in data.values.all_envs:
+  - name: #@ "flyway-" + env
+    public: true
+    serial: true
+    plan:
+      - in_parallel:
+          - get: #@ data.values[env].source_code
+          - get: pipeline
+            passed: #@ data.values[env].passed
+      - task: flyway
+        file: pipeline/ci/tasks/flyway/task.yml
+        input_mapping:
+          source: #@ data.values[env].source_code
+        params:
+          CMDS_FLYWAY: 'info; -X migrate; info'
+          FLYWAY_URL: #@ data.values[env].flyway.DB_URL
+          FLYWAY_USER: #@ data.values[env].flyway.DB_USER
+          FLYWAY_PASSWORD: #@ data.values[env].flyway.DB_PASSWORD
+  #@ end
+
+
+#!#######################################################################################################################
+#!    _____   _____     ____    _    _   _____     _____
+#!  / ____| |  __ \   / __ \  | |  | | |  __ \   / ____|
+#! | |  __  | |__) | | |  | | | |  | | | |__) | | (___
+#! | | |_ | |  _  /  | |  | | | |  | | |  ___/   \___ \
+#! | |__| | | | \ \  | |__| | | |__| | | |       ____) |
+#!  \_____| |_|  \_\  \____/   \____/  |_|      |_____/
+#!#######################################################################################################################
+
+groups:
+  - name: all
+    jobs:
+      #@ for env in data.values.envs:
+      - #@ "flyway-" + env
+      #@ end
+
+
+  #@ for env in data.values.all_envs:
+  - name:  #@ env
+    jobs:
+      - #@ "flyway-" + env
+        #@ end
+
+#!#######################################################################################################################
+#!  _____    ______    _____    ____    _    _   _____     _____   ______    _____
+#! |  __ \  |  ____|  / ____|  / __ \  | |  | | |  __ \   / ____| |  ____|  / ____|
+#! | |__) | | |__    | (___   | |  | | | |  | | | |__) | | |      | |__    | (___
+#! |  _  /  |  __|    \___ \  | |  | | | |  | | |  _  /  | |      |  __|    \___ \
+#! | | \ \  | |____   ____) | | |__| | | |__| | | | \ \  | |____  | |____   ____) |
+#! |_|  \_\ |______| |_____/   \____/   \____/  |_|  \_\  \_____| |______| |_____/
+#!#######################################################################################################################
+
+
+resources:
+  #! Projet git devant être déployé, ici depuis la branche develop
+  - name: source-code
+    check_every: 30m
+    icon: gitlab
+    type: git
+    <<: *webhook
+    source:
+      <<: *repo-git
+      branch: ((branch-source-code))
+
+  - name: source-code-ant
+    check_every: 30m
+    icon: gitlab
+    type: git
+    <<: *webhook
+    source:
+      <<: *repo-git
+      branch: ((branch-source-code-ant))
+
+  #! Le source code pipeline
+  - name: pipeline
+    check_every: 32h
+    icon: concourse-ci
+    type: git
+    <<: *webhook
+    source:
+      <<: *repo-git
+      branch: concourse
+
+
+

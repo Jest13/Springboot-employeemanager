@@ -1,0 +1,4 @@
+# Personnalisation projet et git
+app-name: chadTracker-api
+git: /pe/sisp/indicateurs-performance/pr021-indicateurs-performance-base.git
+branch-source-code: master
