@@ -1,10 +1,18 @@
 package com.user.usermanager.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
+@Data
+@AllArgsConstructor
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,6 +31,8 @@ public class User implements Serializable {
     @Column(nullable = false, updatable = false)
     private String userCode;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Collection<Role> roles = new ArrayList<>();
 
     public User(){
 
